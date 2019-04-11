@@ -1,8 +1,18 @@
 h1 dåligt forum för dåligt folk
 
 form action='/login' method='POST'
-            input type='text' placeholder='name' name='name'
-            input type='password' placeholder='pass' name='pass'
-            input type='submit' value='yes'
+    input type='text' placeholder='name' name='name'
+    input type='password' placeholder='pass' name='pass'
+    input type='submit' value='yes'
 
-a href="/register" regestirer
+a href='/register' regestirer
+
+form action="/logout" method="POST"
+    input type="submit" value="escape"
+
+-if session[:loggedin]
+    p send mail
+    form action='/new_thread' method='POST'
+        input type='text' placeholder='title' name='title'
+        input type='text' placeholder='description' name='description'
+        input type='submit' value='yee'

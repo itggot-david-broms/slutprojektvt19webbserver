@@ -17,11 +17,12 @@ def create()
 end
 
 def login()
-    result = db.execute("SELECT Password FROM users WHERE Name =(?)", params["name"])
+    db = SQLite3::Database.new('db/db.db')
+    result = db.execute("SELECT Password FROM users WHERE Username =(?)", params["name"])
     if result[0] == nil
         redirect('/lolno')
     end
-    not_password = result[0]["Password"]
+    not_password = result[0][0]
     if BCrypt::Password.new(not_password) == params["pass"]
         session[:loggedin] = true
         session[:user] = params["name"]
@@ -31,3 +32,15 @@ def login()
         redirect('/')
     end
 end
+
+def new_thread()
+    db = SQLite3::Database.new('db/db.db')
+    opid = db.execute("SELECT UserId FROM users WHERE Username=(?)", session[:user])
+    db.execute("INSERT INTO threads(Title, Description, OpId) VALUES(?, ?, ?)", params["title"], params["description"], opid)
+    redirect('/')
+end
+
+# def posts()
+#     db = SQLite3::Database.new('db/db.db')
+#     db.results_as_hash = true
+#     posts = db.execute()

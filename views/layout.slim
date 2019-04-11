@@ -7,5 +7,7 @@ html lang="en"
         title forumET
     body
     p yeet
+    -if session[:loggedin]
+        p velkom #{session[:user]}
 
     ==yield

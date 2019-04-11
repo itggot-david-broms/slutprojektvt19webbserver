@@ -22,5 +22,14 @@ post('/create') do
 end
 
 post('/login') do
-    login()
+    login()    
+end
+
+post('/logout') do
+    session.destroy
+    redirect('/')
+end
+
+post('/new_thread') do
+    new_thread()
 end
