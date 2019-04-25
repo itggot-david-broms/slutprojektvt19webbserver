@@ -40,7 +40,10 @@ def new_thread()
     redirect('/')
 end
 
-# def posts()
-#     db = SQLite3::Database.new('db/db.db')
-#     db.results_as_hash = true
-#     posts = db.execute()
+ def index()
+    db = SQLite3::Database.new('db/db.db')
+    db.results_as_hash = true
+    posts = db.execute("SELECT threads.*, users.Username FROM threads INNER JOIN users ON threads.OpId = users.UserId")
+    #post_op = db.execute("SELECT users.username FROM users WHERE users.UserId = threads.OpId")
+    slim(:index, locals:{posts: posts})
+ end

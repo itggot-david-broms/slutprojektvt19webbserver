@@ -10,7 +10,7 @@ db = SQLite3::Database.new('db/db.db')
 db.results_as_hash = true
 
 get('/') do
-    slim(:index)
+    index()
 end
 
 get('/register') do
