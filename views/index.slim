@@ -17,8 +17,18 @@ form action="/logout" method="POST"
         input type='text' placeholder='description' name='description'
         input type='submit' value='yee'
 
--posts.each do |element|
+-threads.each do |element|
     article
+        h2 = element["ThreadId"]
         h2 = element["Title"]
-        p= element["Description"]
+        p = element["Description"]
         p = element["Username"]
+
+        -replies.each do |element2|
+            -if element2["ParentId"] = element["ThreadId"]
+                h2 = element2["ParentId"]
+                p = element2["Text"]
+                p = element2["Username"]
+            -else
+                P no hatemail yet
+        

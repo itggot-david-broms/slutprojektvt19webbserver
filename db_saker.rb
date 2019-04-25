@@ -43,7 +43,7 @@ end
  def index()
     db = SQLite3::Database.new('db/db.db')
     db.results_as_hash = true
-    posts = db.execute("SELECT threads.*, users.Username FROM threads INNER JOIN users ON threads.OpId = users.UserId")
-    #post_op = db.execute("SELECT users.username FROM users WHERE users.UserId = threads.OpId")
-    slim(:index, locals:{posts: posts})
+    threads = db.execute("SELECT threads.*, users.Username FROM threads INNER JOIN users ON threads.OpId = users.UserId")
+    replies = db.execute("SELECT replies.*, users.Username FROM replies INNER JOIN users ON replies.AuthorId = users.UserId")
+    slim(:index, locals:{threads: threads, replies: replies})
  end
