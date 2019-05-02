@@ -33,3 +33,7 @@ end
 post('/new_thread') do
     new_thread()
 end
+
+post('/reply/:threadId') do
+    reply()
+end

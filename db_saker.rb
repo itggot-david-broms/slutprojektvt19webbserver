@@ -20,7 +20,8 @@ def login()
     db = SQLite3::Database.new('db/db.db')
     result = db.execute("SELECT Password FROM users WHERE Username =(?)", params["name"])
     if result[0] == nil
-        redirect('/lolno')
+        session[:loginfail] = true
+        redirect('/')
     end
     not_password = result[0][0]
     if BCrypt::Password.new(not_password) == params["pass"]
@@ -46,4 +47,11 @@ end
     threads = db.execute("SELECT threads.*, users.Username FROM threads INNER JOIN users ON threads.OpId = users.UserId")
     replies = db.execute("SELECT replies.*, users.Username FROM replies INNER JOIN users ON replies.AuthorId = users.UserId")
     slim(:index, locals:{threads: threads, replies: replies})
+ end
+
+ def reply()
+    db = SQLite3::Database.new('db/db.db')
+    authorid = db.execute("SELECT UserId FROM users WHERE Username=(?)", session[:user])
+    db.execute("INSERT INTO replies(Text, AuthorId, ParentId) VALUES(?, ?, ?)", params["reply"], authorid, params["threadId"])
+    redirect('/')
  end

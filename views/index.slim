@@ -1,14 +1,13 @@
-h1 dåligt forum för dåligt folk
+-if session[:loggedin] == false
+    form action='/login' method='POST'
+        input type='text' placeholder='name' name='name'
+        input type='password' placeholder='pass' name='pass'
+        input type='submit' value='yes'
 
-form action='/login' method='POST'
-    input type='text' placeholder='name' name='name'
-    input type='password' placeholder='pass' name='pass'
-    input type='submit' value='yes'
+    a href='/register' regestirer
 
-a href='/register' regestirer
-
-form action="/logout" method="POST"
-    input type="submit" value="escape"
+form action='/logout' method='POST'
+    input type='submit' value='escape'
 
 -if session[:loggedin]
     p send mail
@@ -19,16 +18,16 @@ form action="/logout" method="POST"
 
 -threads.each do |element|
     article
-        h2 = element["ThreadId"]
         h2 = element["Title"]
         p = element["Description"]
-        p = element["Username"]
+        p = "-#{element["Username"]}"
 
         -replies.each do |element2|
-            -if element2["ParentId"] = element["ThreadId"]
-                h2 = element2["ParentId"]
+            -if element2["ParentId"] == element["ThreadId"]
                 p = element2["Text"]
-                p = element2["Username"]
+                p = "-#{element2["Username"]}"
             -else
-                P no hatemail yet
-        
+        -if session[:loggedin]
+            form action='/reply/#{element["ThreadId"]}' method='POST'
+                input type='text' placeholder='leave hatemail' name='reply'
+                input type='submit' value='h8'
