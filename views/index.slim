@@ -1,14 +1,15 @@
--if session[:loggedin] == false
-    form action='/login' method='POST'
-        input type='text' placeholder='name' name='name'
-        input type='password' placeholder='pass' name='pass'
-        input type='submit' value='yes'
+/ -if session[:loggedin] == false
+form action='/login' method='POST'
+    input type='text' placeholder='name' name='name'
+    input type='password' placeholder='pass' name='pass'
+    input type='submit' value='yes'
 
-    a href='/register' regestirer
+a href='/register' regestirer
 
 form action='/logout' method='POST'
     input type='submit' value='escape'
-
+-if session[:loginfail]
+    p try again
 -if session[:loggedin]
     p send mail
     form action='/new_thread' method='POST'
