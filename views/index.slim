@@ -8,8 +8,8 @@ a href='/register' regestirer
 
 form action='/logout' method='POST'
     input type='submit' value='escape'
--if session[:loginfail]
-    p try again
+/ -if session[:loginfail]
+/     p try again
 -if session[:loggedin]
     p send mail
     form action='/new_thread' method='POST'
@@ -27,6 +27,8 @@ form action='/logout' method='POST'
             -if element2["ParentId"] == element["ThreadId"]
                 p = element2["Text"]
                 p = "-#{element2["Username"]}"
+                form action='/delete_thread' method='POST'
+                    input type='submit' value='delet ths'
             -else
         -if session[:loggedin]
             form action='/reply/#{element["ThreadId"]}' method='POST'

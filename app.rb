@@ -37,3 +37,7 @@ end
 post('/reply/:threadId') do
     reply()
 end
+
+post('/delete_thread') do
+    delete_thread()
+end
